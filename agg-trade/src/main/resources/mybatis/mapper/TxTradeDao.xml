@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwton.agg.trade.dao.TxTradeDao">
+    <resultMap id="BaseResultMap" type="com.bwton.agg.trade.data.entity.TxTradeEntity">
+        <id column="tx_trade_no" property="txTradeNo"/>
+        <result column="org_tx_trade_no" property="orgTxTradeNo"/>
+        <result column="merchant_id" property="merchantId"/>
+        <result column="device_no" property="deviceNo"/>
+        <result column="mer_order_no" property="merOrderNo"/>
+        <result column="trade_type" property="tradeType"/>
+        <result column="total_fee" property="totalFee"/>
+        <result column="cash_fee" property="cashFee"/>
+        <result column="coupon_fee" property="couponFee"/>
+        <result column="fee_type" property="feeType"/>
+        <result column="mer_tx_time" property="merTxTime"/>
+        <result column="mer_time_expire" property="merTimeExpire"/>
+        <result column="mer_order_desc" property="merOrderDesc"/>
+        <result column="tx_status" property="txStatus"/>
+        <result column="operation_date" property="operationDate"/>
+        <result column="product_id" property="productId"/>
+        <result column="merchant_ip" property="merchantIp"/>
+        <result column="notify_url" property="notifyUrl"/>
+        <result column="req_reserved" property="reqReserved"/>
+        <result column="code_url" property="codeUrl"/>
+        <result column="code_img_url" property="codeImgUrl"/>
+        <result column="global_seq" property="globalSeq"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    tx_trade_no, org_tx_trade_no, merchant_id, device_no, mer_order_no, trade_type, total_fee,
+    cash_fee, coupon_fee, fee_type, mer_tx_time, mer_time_expire, mer_order_desc, tx_status,
+    operation_date, product_id, merchant_ip, notify_url, req_reserved, code_url, code_img_url,
+    global_seq, gmt_create, gmt_modified
+    </sql>
+
+    <select id="getByTxTradeNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from tx_trade where tx_trade_no = #{txTradeNo}
+    </select>
+    <select id="getByMerOrderNoAndMerchantId" parameterType="com.bwton.agg.trade.data.entity.TxTradeEntity" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from tx_trade
+        where mer_order_no = #{merOrderNo,jdbcType=VARCHAR}
+        and merchant_id = #{merchantId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getByTxTradeNoAndMerchantId" parameterType="com.bwton.agg.trade.data.entity.TxTradeEntity" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from tx_trade
+        where tx_trade_no = #{txTradeNo,jdbcType=VARCHAR}
+        and merchant_id = #{merchantId,jdbcType=VARCHAR}
+    </select>
+    <select id="accountRefundTotalByOrgSerialNo" resultType="java.lang.String">
+        select sum(cash_fee) from tx_trade
+        where org_tx_trade_no = #{txTradeNo,jdbcType=VARCHAR}
+        and tx_status = #{txStatus}
+        and trade_type = #{tradeType}
+    </select>
+
+    <insert id="insert" keyColumn="tx_trade_no" keyProperty="txTradeNo" parameterType="com.bwton.agg.trade.data.entity.TxTradeEntity">
+        insert into tx_trade
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != txTradeNo'>
+                tx_trade_no,
+            </if>
+            <if test ='null != orgTxTradeNo'>
+                org_tx_trade_no,
+            </if>
+            <if test ='null != merchantId'>
+                merchant_id,
+            </if>
+            <if test ='null != deviceNo'>
+                device_no,
+            </if>
+            <if test ='null != merOrderNo'>
+                mer_order_no,
+            </if>
+            <if test ='null != tradeType'>
+                trade_type,
+            </if>
+            <if test ='null != totalFee'>
+                total_fee,
+            </if>
+            <if test ='null != cashFee'>
+                cash_fee,
+            </if>
+            <if test ='null != couponFee'>
+                coupon_fee,
+            </if>
+            <if test ='null != feeType'>
+                fee_type,
+            </if>
+            <if test ='null != merTxTime'>
+                mer_tx_time,
+            </if>
+            <if test ='null != merTimeExpire'>
+                mer_time_expire,
+            </if>
+            <if test ='null != merOrderDesc'>
+                mer_order_desc,
+            </if>
+            <if test ='null != txStatus'>
+                tx_status,
+            </if>
+            <if test ='null != operationDate'>
+                operation_date,
+            </if>
+            <if test ='null != productId'>
+                product_id,
+            </if>
+            <if test ='null != merchantIp'>
+                merchant_ip,
+            </if>
+            <if test ='null != notifyUrl'>
+                notify_url,
+            </if>
+            <if test ='null != reqReserved'>
+                req_reserved,
+            </if>
+            <if test ='null != codeUrl'>
+                code_url,
+            </if>
+            <if test ='null != codeImgUrl'>
+                code_img_url,
+            </if>
+            <if test ='null != globalSeq'>
+                global_seq,
+            </if>
+            <if test ='null != gmtCreate'>
+                gmt_create,
+            </if>
+            <if test ='null != gmtModified'>
+                gmt_modified
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != txTradeNo'>
+                #{txTradeNo},
+            </if>
+            <if test ='null != orgTxTradeNo'>
+                #{orgTxTradeNo},
+            </if>
+            <if test ='null != merchantId'>
+                #{merchantId},
+            </if>
+            <if test ='null != deviceNo'>
+                #{deviceNo},
+            </if>
+            <if test ='null != merOrderNo'>
+                #{merOrderNo},
+            </if>
+            <if test ='null != tradeType'>
+                #{tradeType},
+            </if>
+            <if test ='null != totalFee'>
+                #{totalFee},
+            </if>
+            <if test ='null != cashFee'>
+                #{cashFee},
+            </if>
+            <if test ='null != couponFee'>
+                #{couponFee},
+            </if>
+            <if test ='null != feeType'>
+                #{feeType},
+            </if>
+            <if test ='null != merTxTime'>
+                #{merTxTime},
+            </if>
+            <if test ='null != merTimeExpire'>
+                #{merTimeExpire},
+            </if>
+            <if test ='null != merOrderDesc'>
+                #{merOrderDesc},
+            </if>
+            <if test ='null != txStatus'>
+                #{txStatus},
+            </if>
+            <if test ='null != operationDate'>
+                #{operationDate},
+            </if>
+            <if test ='null != productId'>
+                #{productId},
+            </if>
+            <if test ='null != merchantIp'>
+                #{merchantIp},
+            </if>
+            <if test ='null != notifyUrl'>
+                #{notifyUrl},
+            </if>
+            <if test ='null != reqReserved'>
+                #{reqReserved},
+            </if>
+            <if test ='null != codeUrl'>
+                #{codeUrl},
+            </if>
+            <if test ='null != codeImgUrl'>
+                #{codeImgUrl},
+            </if>
+            <if test ='null != globalSeq'>
+                #{globalSeq},
+            </if>
+            <if test ='null != gmtCreate'>
+                #{gmtCreate},
+            </if>
+            <if test ='null != gmtModified'>
+                #{gmtModified}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bwton.agg.trade.data.entity.TxTradeEntity">
+        update tx_trade
+        <set>
+            <if test ='null != orgTxTradeNo'>org_tx_trade_no = #{orgTxTradeNo},</if>
+            <if test ='null != merchantId'>merchant_id = #{merchantId},</if>
+            <if test ='null != deviceNo'>device_no = #{deviceNo},</if>
+            <if test ='null != merOrderNo'>mer_order_no = #{merOrderNo},</if>
+            <if test ='null != tradeType'>trade_type = #{tradeType},</if>
+            <if test ='null != totalFee'>total_fee = #{totalFee},</if>
+            <if test ='null != cashFee'>cash_fee = #{cashFee},</if>
+            <if test ='null != couponFee'>coupon_fee = #{couponFee},</if>
+            <if test ='null != feeType'>fee_type = #{feeType},</if>
+            <if test ='null != merTxTime'>mer_tx_time = #{merTxTime},</if>
+            <if test ='null != merTimeExpire'>mer_time_expire = #{merTimeExpire},</if>
+            <if test ='null != merOrderDesc'>mer_order_desc = #{merOrderDesc},</if>
+            <if test ='null != txStatus'>tx_status = #{txStatus},</if>
+            <if test ='null != operationDate'>operation_date = #{operationDate},</if>
+            <if test ='null != productId'>product_id = #{productId},</if>
+            <if test ='null != merchantIp'>merchant_ip = #{merchantIp},</if>
+            <if test ='null != notifyUrl'>notify_url = #{notifyUrl},</if>
+            <if test ='null != reqReserved'>req_reserved = #{reqReserved},</if>
+            <if test ='null != codeUrl'>code_url = #{codeUrl},</if>
+            <if test ='null != codeImgUrl'>code_img_url = #{codeImgUrl},</if>
+            <if test ='null != globalSeq'>global_seq = #{globalSeq},</if>
+            <if test ='null != gmtCreate'>gmt_create = #{gmtCreate},</if>
+            <if test ='null != gmtModified'>gmt_modified = #{gmtModified}</if>
+        </set>
+        where tx_trade_no = #{txTradeNo}
+    </update>
+
+</mapper>

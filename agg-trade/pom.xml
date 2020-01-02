@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>agg-pay</artifactId>
+        <groupId>com.bwton.agg</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>agg-trade</artifactId>
+    <name>${project.artifactId} - 交易核心</name>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <bsp-job-core.version>0.0.1.RELEASE</bsp-job-core.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.bwton.agg</groupId>
+            <artifactId>agg-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bwton.agg</groupId>
+            <artifactId>agg-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bwton</groupId>
+            <artifactId>bsp-job-core</artifactId>
+            <version>${bsp-job-core.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <resources>
+                                <!-- 配置 -->
+                                <resource>
+                                    <directory>../${common.resource.path}/src/main/resources/config/</directory>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                    <targetPath>config</targetPath>
+                                </resource>
+                                <resource>
+                                    <directory>../${common.resource.path}/src/main/resources/bin/</directory>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                    <targetPath>bin</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <descriptor>../${common.resource.path}/src/main/resources/conf/assembly.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,80 @@
+spring:
+  profiles:
+    active: @profileActive@
+
+---
+#读取nacos中local配置信息
+spring:
+  profiles: local
+  cloud:
+    nacos:
+      config:
+        server-addr: 10.10.4.29:8848
+        file-extension: yml
+        group: agg
+        name: @artifactId@
+        # 共享的配置列表
+        ext-config:
+          0:
+            data-id: agg-base.yml
+            group: agg
+            refresh: true
+        namespace: 9dbe0c75-dc5c-4382-9270-c890b2db994c
+
+---
+#读取nacos中dev配置信息 --- 172.17.50.11
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 10.10.4.29:8848
+        file-extension: yml
+        group: agg
+        name: @artifactId@
+        # 共享的配置列表
+        ext-config:
+          0:
+            data-id: agg-base.yml
+            group: agg
+            refresh: true
+        namespace: 53894a7c-0dbd-4aa5-9c9c-c37f8d3c9e20
+
+---
+#读取nacos中test配置信息
+spring:
+  profiles: test150
+  cloud:
+    nacos:
+      config:
+        server-addr: 10.10.7.103:8848
+        file-extension: yml
+        group: agg
+        name: @artifactId@
+        # 共享的配置列表
+        ext-config:
+          0:
+            data-id: agg-base.yml
+            group: agg
+            refresh: true
+        namespace: b614150f-7c87-4aa9-aef3-1ce84f8a8d76
+
+---
+#读取nacos中publish配置信息
+spring:
+  profiles: publish
+  cloud:
+    nacos:
+      config:
+        server-addr: 10.80.132.180:8848
+        file-extension: yml
+        group: agg
+        name: @artifactId@
+        # 共享的配置列表
+        ext-config:
+          0:
+            data-id: agg-base.yml
+            group: agg
+            refresh: true
+        namespace: ab215624-8071-44d0-b9f0-d6f44ef28bff
+

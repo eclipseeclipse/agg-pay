@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwton.agg.trade.dao.TxChannelDao">
+    <resultMap id="BaseResultMap" type="com.bwton.agg.trade.data.entity.TxChannelEntity" >
+        <result column="tx_serial_no" property="txSerialNo"/>
+        <result column="org_tx_serial_no" property="orgTxSerialNo"/>
+        <result column="tx_trade_no" property="txTradeNo"/>
+        <result column="tx_channel_time" property="txChannelTime"/>
+        <result column="total_fee" property="totalFee"/>
+        <result column="cash_fee" property="cashFee"/>
+        <result column="coupon_fee" property="couponFee"/>
+        <result column="fee_rate" property="feeRate"/>
+        <result column="fee_type" property="feeType"/>
+        <result column="tx_status" property="txStatus"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="channel_mer_id" property="channelMerId"/>
+        <result column="channel_group" property="channelGroup"/>
+        <result column="out_serial_no" property="outSerialNo"/>
+        <result column="out_end_time" property="outEndTime"/>
+        <result column="out_settle_date" property="outSettleDate"/>
+        <result column="out_resp_code" property="outRespCode"/>
+        <result column="out_resp_desc" property="outRespDesc"/>
+        <result column="code_url" property="codeUrl"/>
+        <result column="code_img_url" property="codeImgUrl"/>
+        <result column="out_trade_type" property="outTradeType"/>
+        <result column="out_third_party_no" property="outThirdPartyNo"/>
+        <result column="req_reserved" property="reqReserved"/>
+        <result column="global_seq" property="globalSeq"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="trade_type" property="tradeType"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    tx_serial_no, org_tx_serial_no, tx_trade_no, tx_channel_time, total_fee, cash_fee, coupon_fee, fee_rate,
+    fee_type, tx_status, channel_id, channel_mer_id, channel_group, out_serial_no, out_end_time, out_settle_date,
+    out_resp_code, out_resp_desc, code_url, code_img_url, out_trade_type, out_third_party_no, req_reserved,
+    global_seq, gmt_create, gmt_modified, trade_type
+    </sql>
+
+    <select id="getByTxSerialNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from tx_channel where tx_serial_no = #{txSerialNo}
+    </select>
+    <select id="getByTxTradeNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from tx_channel where tx_trade_no = #{txTradeNo}
+    </select>
+
+    <select id="listByTxSerialNo" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from tx_channel where tx_serial_no in
+        <foreach collection="txSerialNos" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+   </select>
+    <select id="listRefundByTxChannelTimeAndTxStatus"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from tx_channel
+        where gmt_create >= #{startTime,jdbcType=TIMESTAMP}
+        and tx_status = #{txStatus}
+        and trade_type = 4
+        limit #{pageSize}
+    </select>
+
+    <select id="listByTxStatusAndTime" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from tx_channel
+        where gmt_create >= #{startTime} and tx_status = #{txStatus} and trade_type = #{tradeType}
+    </select>
+
+    <insert id="insert" keyColumn="tx_serial_no" keyProperty="tx_serial_no" parameterType="com.bwton.agg.trade.data.entity.TxChannelEntity">
+        insert into tx_channel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != txSerialNo'>
+                tx_serial_no,
+            </if>
+            <if test ='null != orgTxSerialNo'>
+                org_tx_serial_no,
+            </if>
+            <if test ='null != txTradeNo'>
+                tx_trade_no,
+            </if>
+            <if test ='null != txChannelTime'>
+                tx_channel_time,
+            </if>
+            <if test ='null != totalFee'>
+                total_fee,
+            </if>
+            <if test ='null != cashFee'>
+                cash_fee,
+            </if>
+            <if test ='null != couponFee'>
+                coupon_fee,
+            </if>
+            <if test ='null != feeRate'>
+                fee_rate,
+            </if>
+            <if test ='null != feeType'>
+                fee_type,
+            </if>
+            <if test ='null != txStatus'>
+                tx_status,
+            </if>
+            <if test ='null != channelId'>
+                channel_id,
+            </if>
+            <if test ='null != channelMerId'>
+                channel_mer_id,
+            </if>
+            <if test ='null != channelGroup'>
+                channel_group,
+            </if>
+            <if test ='null != outSerialNo'>
+                out_serial_no,
+            </if>
+            <if test ='null != outEndTime'>
+                out_end_time,
+            </if>
+            <if test ='null != outSettleDate'>
+                out_settle_date,
+            </if>
+            <if test ='null != outRespCode'>
+                out_resp_code,
+            </if>
+            <if test ='null != outRespDesc'>
+                out_resp_desc,
+            </if>
+            <if test ='null != codeUrl'>
+                code_url,
+            </if>
+            <if test ='null != codeImgUrl'>
+                code_img_url,
+            </if>
+            <if test ='null != outTradeType'>
+                out_trade_type,
+            </if>
+            <if test ='null != outThirdPartyNo'>
+                out_third_party_no,
+            </if>
+            <if test ='null != reqReserved'>
+                req_reserved,
+            </if>
+            <if test ='null != globalSeq'>
+                global_seq,
+            </if>
+            <if test ='null != gmtCreate'>
+                gmt_create,
+            </if>
+            <if test ='null != gmtModified'>
+                gmt_modified,
+            </if>
+            <if test ='null != tradeType'>
+                trade_type
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != txSerialNo'>
+                #{txSerialNo},
+            </if>
+            <if test ='null != orgTxSerialNo'>
+                #{orgTxSerialNo},
+            </if>
+            <if test ='null != txTradeNo'>
+                #{txTradeNo},
+            </if>
+            <if test ='null != txChannelTime'>
+                #{txChannelTime},
+            </if>
+            <if test ='null != totalFee'>
+                #{totalFee},
+            </if>
+            <if test ='null != cashFee'>
+                #{cashFee},
+            </if>
+            <if test ='null != couponFee'>
+                #{couponFee},
+            </if>
+            <if test ='null != feeRate'>
+                #{feeRate},
+            </if>
+            <if test ='null != feeType'>
+                #{feeType},
+            </if>
+            <if test ='null != txStatus'>
+                #{txStatus},
+            </if>
+            <if test ='null != channelId'>
+                #{channelId},
+            </if>
+            <if test ='null != channelMerId'>
+                #{channelMerId},
+            </if>
+            <if test ='null != channelGroup'>
+                #{channelGroup},
+            </if>
+            <if test ='null != outSerialNo'>
+                #{outSerialNo},
+            </if>
+            <if test ='null != outEndTime'>
+                #{outEndTime},
+            </if>
+            <if test ='null != outSettleDate'>
+                #{outSettleDate},
+            </if>
+            <if test ='null != outRespCode'>
+                #{outRespCode},
+            </if>
+            <if test ='null != outRespDesc'>
+                #{outRespDesc},
+            </if>
+            <if test ='null != codeUrl'>
+                #{codeUrl},
+            </if>
+            <if test ='null != codeImgUrl'>
+                #{codeImgUrl},
+            </if>
+            <if test ='null != outTradeType'>
+                #{outTradeType},
+            </if>
+            <if test ='null != outThirdPartyNo'>
+                #{outThirdPartyNo},
+            </if>
+            <if test ='null != reqReserved'>
+                #{reqReserved},
+            </if>
+            <if test ='null != globalSeq'>
+                #{globalSeq},
+            </if>
+            <if test ='null != gmtCreate'>
+                #{gmtCreate},
+            </if>
+            <if test ='null != gmtModified'>
+                #{gmtModified},
+            </if>
+            <if test ='null != tradeType'>
+                #{tradeType}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bwton.agg.trade.data.entity.TxChannelEntity">
+        update tx_channel
+        <set>
+            <if test ='null != orgTxSerialNo'>org_tx_serial_no = #{orgTxSerialNo},</if>
+            <if test ='null != txTradeNo'>tx_trade_no = #{txTradeNo},</if>
+            <if test ='null != txChannelTime'>tx_channel_time = #{txChannelTime},</if>
+            <if test ='null != totalFee'>total_fee = #{totalFee},</if>
+            <if test ='null != cashFee'>cash_fee = #{cashFee},</if>
+            <if test ='null != couponFee'>coupon_fee = #{couponFee},</if>
+            <if test ='null != feeRate'>fee_rate = #{feeRate},</if>
+            <if test ='null != feeType'>fee_type = #{feeType},</if>
+            <if test ='null != txStatus'>tx_status = #{txStatus},</if>
+            <if test ='null != channelId'>channel_id = #{channelId},</if>
+            <if test ='null != channelMerId'>channel_mer_id = #{channelMerId},</if>
+            <if test ='null != channelGroup'>channel_group = #{channelGroup},</if>
+            <if test ='null != outSerialNo'>out_serial_no = #{outSerialNo},</if>
+            <if test ='null != outEndTime'>out_end_time = #{outEndTime},</if>
+            <if test ='null != outSettleDate'>out_settle_date = #{outSettleDate},</if>
+            <if test ='null != outRespCode'>out_resp_code = #{outRespCode},</if>
+            <if test ='null != outRespDesc'>out_resp_desc = #{outRespDesc},</if>
+            <if test ='null != codeUrl'>code_url = #{codeUrl},</if>
+            <if test ='null != codeImgUrl'>code_img_url = #{codeImgUrl},</if>
+            <if test ='null != outTradeType'>out_trade_type = #{outTradeType},</if>
+            <if test ='null != outThirdPartyNo'>out_third_party_no = #{outThirdPartyNo},</if>
+            <if test ='null != reqReserved'>req_reserved = #{reqReserved},</if>
+            <if test ='null != globalSeq'>global_seq = #{globalSeq},</if>
+            <if test ='null != gmtCreate'>gmt_create = #{gmtCreate},</if>
+            <if test ='null != gmtModified'>gmt_modified = #{gmtModified},</if>
+            <if test ='null != tradeType'>trade_type = #{tradeType}</if>
+        </set>
+        where tx_serial_no = #{txSerialNo}
+    </update>
+
+</mapper>

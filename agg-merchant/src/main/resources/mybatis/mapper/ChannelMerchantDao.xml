@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwton.agg.merchant.dao.ChannelMerchantDao">
+
+    <resultMap id="BaseResultMap" type="com.bwton.agg.merchant.data.entity.ChannelMerchantEntity" >
+        <result column="id" property="id" />
+        <result column="channel_id" property="channelId" />
+        <result column="channel_mer_id" property="channelMerId" />
+        <result column="fee_rate" property="feeRate" />
+        <result column="secure_key" property="secureKey" />
+        <result column="secure_path" property="securePath" />
+        <result column="region" property="region" />
+        <result column="status" property="status" />
+        <result column="base_url" property="baseUrl" />
+        <result column="sign_type" property="signType" />
+        <result column="app_id" property="appId" />
+        <result column="plat_pri_key" property="platPriKey" />
+        <result column="plat_pub_key" property="platPubKey" />
+        <result column="channel_pub_key" property="channelPubKey" />
+        <result column="channel_mer_name" property="channelMerName" />
+        <result column="channel_mer_abbr" property="channelMerAbbr" />
+        <result column="remark" property="remark" />
+        <result column="create_user" property="createUser" />
+        <result column="modified_user" property="modifiedUser" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, channel_id, channel_mer_id, fee_rate, secure_key, secure_path, region, status, base_url, sign_type,
+    app_id, plat_pri_key, plat_pub_key, channel_pub_key, channel_mer_name, channel_mer_abbr, remark,
+    create_user, modified_user, gmt_create, gmt_modified
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from channel_merchant where id = #{id}
+    </select>
+
+    <select id="getByChannelIdAndChannelMerId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from channel_merchant where channel_id = #{channelId} and channel_mer_id = #{channelMerId}
+    </select>
+    <select id="getByMerchantId" resultType="com.bwton.agg.merchant.data.entity.ChannelMerchantEntity">
+        select cm.channel_id as channelId, cm.channel_mer_id as channelMerId, cm.base_url as baseUrl, cm.secure_key as secureKey
+     from channel_merchant cm join merchant_route mr
+      on mr.channel_merchant_id = cm.id
+        where mr.merchant_id = #{merchantId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="com.bwton.agg.merchant.data.entity.ChannelMerchantEntity">
+        insert into channel_merchant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != channelId'>
+                channel_id,
+            </if>
+            <if test ='null != channelMerId'>
+                channel_mer_id,
+            </if>
+            <if test ='null != feeRate'>
+                fee_rate,
+            </if>
+            <if test ='null != securePath'>
+                secure_path,
+            </if>
+            <if test ='null != region'>
+                region,
+            </if>
+            <if test ='null != status'>
+                status,
+            </if>
+            <if test ='null != baseUrl'>
+                base_url,
+            </if>
+            <if test ='null != signType'>
+                sign_type,
+            </if>
+            <if test ='null != appId'>
+                app_id,
+            </if>
+            <if test ='null != channelMerName'>
+                channel_mer_name,
+            </if>
+            <if test ='null != channelMerAbbr'>
+                channel_mer_abbr,
+            </if>
+            <if test ='null != remark'>
+                remark,
+            </if>
+            <if test ='null != createUser'>
+                create_user,
+            </if>
+            <if test ='null != modifiedUser'>
+                modified_user,
+            </if>
+            <if test ='null != gmtCreate'>
+                gmt_create,
+            </if>
+            <if test ='null != gmtModified'>
+                gmt_modified
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != channelId'>
+                #{channelId},
+            </if>
+            <if test ='null != channelMerId'>
+                #{channelMerId},
+            </if>
+            <if test ='null != feeRate'>
+                #{feeRate},
+            </if>
+            <if test ='null != securePath'>
+                #{securePath},
+            </if>
+            <if test ='null != region'>
+                #{region},
+            </if>
+            <if test ='null != status'>
+                #{status},
+            </if>
+            <if test ='null != baseUrl'>
+                #{baseUrl},
+            </if>
+            <if test ='null != signType'>
+                #{signType},
+            </if>
+            <if test ='null != appId'>
+                #{appId},
+            </if>
+            <if test ='null != channelMerName'>
+                #{channelMerName},
+            </if>
+            <if test ='null != channelMerAbbr'>
+                #{channelMerAbbr},
+            </if>
+            <if test ='null != remark'>
+                #{remark},
+            </if>
+            <if test ='null != createUser'>
+                #{createUser},
+            </if>
+            <if test ='null != modifiedUser'>
+                #{modifiedUser},
+            </if>
+            <if test ='null != gmtCreate'>
+                #{gmtCreate},
+            </if>
+            <if test ='null != gmtModified'>
+                #{gmtModified}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bwton.agg.merchant.data.entity.ChannelMerchantEntity">
+        update channel_merchant
+        <set>
+            <if test ='null != channelId'>channel_id = #{channelId},</if>
+            <if test ='null != channelMerId'>channel_mer_id = #{channelMerId},</if>
+            <if test ='null != feeRate'>fee_rate = #{feeRate},</if>
+            <if test ='null != securePath'>secure_path = #{securePath},</if>
+            <if test ='null != region'>region = #{region},</if>
+            <if test ='null != status'>status = #{status},</if>
+            <if test ='null != baseUrl'>base_url = #{baseUrl},</if>
+            <if test ='null != signType'>sign_type = #{signType},</if>
+            <if test ='null != appId'>app_id = #{appId},</if>
+            <if test ='null != channelMerName'>channel_mer_name = #{channelMerName},</if>
+            <if test ='null != channelMerAbbr'>channel_mer_abbr = #{channelMerAbbr},</if>
+            <if test ='null != remark'>remark = #{remark},</if>
+            <if test ='null != createUser'>create_user = #{createUser},</if>
+            <if test ='null != modifiedUser'>modified_user = #{modifiedUser},</if>
+            <if test ='null != gmtCreate'>gmt_create = #{gmtCreate},</if>
+            <if test ='null != gmtModified'>gmt_modified = #{gmtModified}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,27 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://localhost:8762/agg/trade/order/create
+Content-Type: application/xml
+
+<xml>
+    <attach>附加信息</attach>
+    <body>测试购买商品</body>
+    <charset>UTF-8</charset>
+    <mch_create_ip>123.12.12.123</mch_create_ip>
+    <mch_id>QRA290454410UV5</mch_id>
+    <nonce_str>1575539031063</nonce_str>
+    <notify_url>http://www.baidu.com/</notify_url>
+    <out_trade_no>1575538464806</out_trade_no>
+    <service>unified.trade.native</service>
+    <sign>82577059546DDEF2281286C1F982C7C2</sign>
+    <sign_type>MD5</sign_type>
+    <total_fee>1</total_fee>
+    <version>2.0</version>
+</xml>
+
+###

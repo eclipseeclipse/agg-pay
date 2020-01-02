@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwton.agg.merchant.dao.MerchantDao">
+
+    <resultMap id="BaseResultMap" type="com.bwton.agg.merchant.data.entity.MerchantEntity" >
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="abbr" property="abbr"/>
+        <result column="status" property="status"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="business_type" property="businessType"/>
+        <result column="order_valid_time" property="orderValidTime"/>
+        <result column="single_limit" property="singleLimit"/>
+        <result column="day_limit" property="dayLimit"/>
+        <result column="has_device" property="hasDevice"/>
+        <result column="credit_card_limit" property="creditCardLimit"/>
+        <result column="secure_key" property="secureKey"/>
+        <result column="sign_type" property="signType"/>
+        <result column="reconciliation_type" property="reconciliationType"/>
+        <result column="upload_recon_file" property="uploadReconFile"/>
+        <result column="upload_recon_url" property="uploadReconUrl"/>
+        <result column="create_user" property="createUser"/>
+        <result column="modified_user" property="modifiedUser"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, name, abbr, status, province, city, business_type, order_valid_time, single_limit, day_limit, has_device,
+    credit_card_limit, secure_key, sign_type, reconciliation_type, upload_recon_file, upload_recon_url, create_user,
+    modified_user, gmt_create, gmt_modified
+    </sql>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from merchant where id = #{id}
+    </select>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.bwton.agg.merchant.data.entity.MerchantEntity">
+        insert into merchant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != id'>
+                id,
+            </if>
+            <if test ='null != name'>
+                name,
+            </if>
+            <if test ='null != abbr'>
+                abbr,
+            </if>
+            <if test ='null != status'>
+                status,
+            </if>
+            <if test ='null != province'>
+                province,
+            </if>
+            <if test ='null != city'>
+                city,
+            </if>
+            <if test ='null != businessType'>
+                business_type,
+            </if>
+            <if test ='null != orderValidTime'>
+                order_valid_time,
+            </if>
+            <if test ='null != singleLimit'>
+                single_limit,
+            </if>
+            <if test ='null != dayLimit'>
+                day_limit,
+            </if>
+            <if test ='null != hasDevice'>
+                has_device,
+            </if>
+            <if test ='null != creditCardLimit'>
+                credit_card_limit,
+            </if>
+            <if test ='null != signType'>
+                sign_type,
+            </if>
+            <if test ='null != reconciliationType'>
+                reconciliation_type,
+            </if>
+            <if test ='null != uploadReconFile'>
+                upload_recon_file,
+            </if>
+            <if test ='null != uploadReconUrl'>
+                upload_recon_url,
+            </if>
+            <if test ='null != createUser'>
+                create_user,
+            </if>
+            <if test ='null != modifiedUser'>
+                modified_user,
+            </if>
+            <if test ='null != gmtCreate'>
+                gmt_create,
+            </if>
+            <if test ='null != gmtModified'>
+                gmt_modified
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != id'>
+                #{id},
+            </if>
+            <if test ='null != name'>
+                #{name},
+            </if>
+            <if test ='null != abbr'>
+                #{abbr},
+            </if>
+            <if test ='null != status'>
+                #{status},
+            </if>
+            <if test ='null != province'>
+                #{province},
+            </if>
+            <if test ='null != city'>
+                #{city},
+            </if>
+            <if test ='null != businessType'>
+                #{businessType},
+            </if>
+            <if test ='null != orderValidTime'>
+                #{orderValidTime},
+            </if>
+            <if test ='null != singleLimit'>
+                #{singleLimit},
+            </if>
+            <if test ='null != dayLimit'>
+                #{dayLimit},
+            </if>
+            <if test ='null != hasDevice'>
+                #{hasDevice},
+            </if>
+            <if test ='null != creditCardLimit'>
+                #{creditCardLimit},
+            </if>
+            <if test ='null != signType'>
+                #{signType},
+            </if>
+            <if test ='null != reconciliationType'>
+                #{reconciliationType},
+            </if>
+            <if test ='null != uploadReconFile'>
+                #{uploadReconFile},
+            </if>
+            <if test ='null != uploadReconUrl'>
+                #{uploadReconUrl},
+            </if>
+            <if test ='null != createUser'>
+                #{createUser},
+            </if>
+            <if test ='null != modifiedUser'>
+                #{modifiedUser},
+            </if>
+            <if test ='null != gmtCreate'>
+                #{gmtCreate},
+            </if>
+            <if test ='null != gmtModified'>
+                #{gmtModified}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bwton.agg.merchant.data.entity.MerchantEntity">
+        update merchant
+        <set>
+            <if test ='null != name'>name = #{name},</if>
+            <if test ='null != abbr'>abbr = #{abbr},</if>
+            <if test ='null != status'>status = #{status},</if>
+            <if test ='null != province'>province = #{province},</if>
+            <if test ='null != city'>city = #{city},</if>
+            <if test ='null != businessType'>business_type = #{businessType},</if>
+            <if test ='null != orderValidTime'>order_valid_time = #{orderValidTime},</if>
+            <if test ='null != singleLimit'>single_limit = #{singleLimit},</if>
+            <if test ='null != dayLimit'>day_limit = #{dayLimit},</if>
+            <if test ='null != hasDevice'>has_device = #{hasDevice},</if>
+            <if test ='null != creditCardLimit'>credit_card_limit = #{creditCardLimit},</if>
+            <if test ='null != signType'>sign_type = #{signType},</if>
+            <if test ='null != reconciliationType'>reconciliation_type = #{reconciliationType},</if>
+            <if test ='null != uploadReconFile'>upload_recon_file = #{uploadReconFile},</if>
+            <if test ='null != uploadReconUrl'>upload_recon_url = #{uploadReconUrl},</if>
+            <if test ='null != createUser'>create_user = #{createUser},</if>
+            <if test ='null != modifiedUser'>modified_user = #{modifiedUser},</if>
+            <if test ='null != gmtCreate'>gmt_create = #{gmtCreate},</if>
+            <if test ='null != gmtModified'>gmt_modified = #{gmtModified}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

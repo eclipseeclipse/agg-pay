@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwton.agg.merchant.dao.DeviceInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.bwton.agg.merchant.data.entity.DeviceInfoEntity" >
+        <result column="id" property="id" />
+        <result column="no" property="no" />
+        <result column="merchant_id" property="merchantId" />
+        <result column="type" property="type" />
+        <result column="line_no" property="lineNo" />
+        <result column="site_no" property="siteNo" />
+        <result column="site_name" property="siteName" />
+        <result column="status" property="status" />
+        <result column="create_user" property="createUser" />
+        <result column="modified_user" property="modifiedUser" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, no, merchant_id, type, line_no, site_no, site_name, status, create_user, modified_user, gmt_create, gmt_modified
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from device_info where id = #{id}
+    </select>
+
+    <select id="listByMerchantId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from device_info where merchant_id = #{merchantId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="com.bwton.agg.merchant.data.entity.DeviceInfoEntity">
+        insert into device_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != no'>
+                no,
+            </if>
+            <if test ='null != merchantId'>
+                merchant_id,
+            </if>
+            <if test ='null != type'>
+                type,
+            </if>
+            <if test ='null != lineNo'>
+                line_no,
+            </if>
+            <if test ='null != siteNo'>
+                site_no,
+            </if>
+            <if test ='null != siteName'>
+                site_name,
+            </if>
+            <if test ='null != status'>
+                status,
+            </if>
+            <if test ='null != createUser'>
+                create_user,
+            </if>
+            <if test ='null != modifiedUser'>
+                modified_user,
+            </if>
+            <if test ='null != gmtCreate'>
+                gmt_create,
+            </if>
+            <if test ='null != gmtModified'>
+                gmt_modified
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != no'>
+                #{no},
+            </if>
+            <if test ='null != merchantId'>
+                #{merchantId},
+            </if>
+            <if test ='null != type'>
+                #{type},
+            </if>
+            <if test ='null != lineNo'>
+                #{lineNo},
+            </if>
+            <if test ='null != siteNo'>
+                #{siteNo},
+            </if>
+            <if test ='null != siteName'>
+                #{siteName},
+            </if>
+            <if test ='null != status'>
+                #{status},
+            </if>
+            <if test ='null != createUser'>
+                #{createUser},
+            </if>
+            <if test ='null != modifiedUser'>
+                #{modifiedUser},
+            </if>
+            <if test ='null != gmtCreate'>
+                #{gmtCreate},
+            </if>
+            <if test ='null != gmtModified'>
+                #{gmtModified}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bwton.agg.merchant.data.entity.DeviceInfoEntity">
+        update device_info
+        <set>
+            <if test ='null != no'>no = #{no},</if>
+            <if test ='null != merchantId'>merchant_id = #{merchantId},</if>
+            <if test ='null != type'>type = #{type},</if>
+            <if test ='null != lineNo'>line_no = #{lineNo},</if>
+            <if test ='null != siteNo'>site_no = #{siteNo},</if>
+            <if test ='null != siteName'>site_name = #{siteName},</if>
+            <if test ='null != status'>status = #{status},</if>
+            <if test ='null != createUser'>create_user = #{createUser},</if>
+            <if test ='null != modifiedUser'>modified_user = #{modifiedUser},</if>
+            <if test ='null != gmtCreate'>gmt_create = #{gmtCreate},</if>
+            <if test ='null != gmtModified'>gmt_modified = #{gmtModified}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
