@@ -19,16 +19,4 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface ChannelPreRest {
     @RequestMapping(value = "/channel/place_order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     Result<ChannelPayVO> placeOrder(ChannelPayBO channelPayBO);
-
-    @RequestMapping(value = "/channel/query", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Result<ChannelQueryVO> query(ChannelQueryBO channelQueryBO);
-
-    @RequestMapping(value = "/channel/close", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Result<ChannelCloseVO> close(ChannelCloseBO channelCloseBO);
-
-    @RequestMapping(value = "/channel/refund", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Result<ChannelRefundVO> refund(ChannelRefundBO channelRefundBO);
-
-    @RequestMapping(value = "/channel/refund/query", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Result<ChannelRefundQueryVO> refundQuery(ChannelRefundQueryBO channelRefundQueryBO);
 }
