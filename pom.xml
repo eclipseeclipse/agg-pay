@@ -200,7 +200,7 @@
         <spring-boot.version>1.5.14.RELEASE</spring-boot.version>
         <rocketmq.version>4.2.0</rocketmq.version>
         <version>0.1.0.RELEASE</version>
-        <quartz.version>2.2.1</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
 
         <bwton.tpdc.api.open.version>1.0.0</bwton.tpdc.api.open.version>
         <bwton.tpdc.api.internal.version>1.0.0</bwton.tpdc.api.internal.version>
