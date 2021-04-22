@@ -225,7 +225,7 @@
         <!--数据库-->
         <druid.version>1.1.16</druid.version>
         <mysql-connector-java.version>5.1.39</mysql-connector-java.version>
-        <mybatis.version>3.4.2</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
 
         <!--工具-->
         <lombok.version>1.16.20</lombok.version>
