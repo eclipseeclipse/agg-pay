@@ -192,7 +192,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--updated by zyj,2019-10-16,v1.0.0, 3.6.5redisson升级到3.8.1-->
         <redisson.version>3.8.1</redisson.version>
-        <resteasy.version>3.0.7.Final</resteasy.version>
+        <resteasy.version>3.0.11.Final</resteasy.version>
         <httpclient.version>4.5.5</httpclient.version>
         <account-common.url>account-common/src/main</account-common.url>
         <junit.version>4.12</junit.version>
